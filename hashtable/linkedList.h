@@ -18,6 +18,7 @@ public:
     int indexOf(int x);
     int remove(int x);
     void print();
+    void printDetailed();
 
     int getHead();
     int getTail();

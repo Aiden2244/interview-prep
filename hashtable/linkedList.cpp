@@ -95,7 +95,7 @@ int linkedList::remove(int x) {
     return -1; 
 }
 
-void linkedList::print() {
+void linkedList::printDetailed() {
     cout << "LENGTH = " << this->getLength()
         << ", HEAD = " << this->getHead()
         << ", TAIL = " << this->getTail()
@@ -118,6 +118,21 @@ void linkedList::print() {
         i++;
     }
     cout << endl;
+}
+
+void linkedList::print() {
+    node* temp = head;
+    cout << "[";
+
+    while (temp != nullptr) {
+        if (temp != head) {
+            cout << ", ";
+        }
+
+        cout << temp->data;
+        temp = temp->next;
+    }
+    cout << "]" << endl;
 }
 
 int linkedList::getHead() {

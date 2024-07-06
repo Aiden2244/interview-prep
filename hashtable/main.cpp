@@ -1,6 +1,6 @@
 #include "node.h"
 #include "linkedList.h"
-#include "globals.h"
+#include "hashtable.h"
 
 
 void nodeTest() {
@@ -43,12 +43,37 @@ void linkedListTest() {
 
 }
 
+void hashtableTest() {
+    hashtable ht = hashtable();
+    cout << "TESTING ADD" << endl;
+    for (int i = 0; i < SIZE + SIZE; i++) {
+        cout << "Element " << i << " hashed to index " << ht.add(i) << endl;
+    }
+    
+    cout << endl << "TESTING FIND" << endl;
+    cout << "Attempting to locate element " << 32 << ": " << ht.find(32) << endl;
+    cout << "Attempting to locate element " << -11 << ": " << ht.find(-11) << endl;
+    cout << "Attempting to locate element " << 200 << ": " << ht.find(200) << endl;
+
+    cout << endl << "TESTING REMOVE" << endl;
+    cout << "Attempting to remove element " << 32 << ": " << ht.remove(32) << endl;
+    cout << "Attempting to remove element " << -11 << ": " << ht.remove(-11) << endl;
+    cout << "Attempting to remove element " << 200 << ": " << ht.remove(200) << endl;
+    cout << "Attempting to remove element " << 99 << ": " << ht.remove(99) << endl;
+    cout << "Attempting to remove element " << 200 << ": " << ht.remove(200) << endl;
+
+
+    cout << endl << "TESTING PRINT" << endl;
+    ht.print();
+}
+
 
 int main() {
 
     try {
         // nodeTest();
-        linkedListTest();
+        // linkedListTest();
+        hashtableTest();
 
         return 0;
     }
