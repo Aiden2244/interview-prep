@@ -8,6 +8,7 @@ public class TestGraph {
         sixthTest();
         seventhTest();
         eighthTest();
+        ninthTest();
     }
 
     public static void firstTest() {
@@ -153,9 +154,29 @@ public class TestGraph {
         System.err.println(e2.compareTo(e1)); // should be false
         System.out.println(e2.compareTo(e3)); // should be false
         System.out.println(e3.compareTo(e3)); // should be true
-        System.out.println(e3.compareTo(e4)); // should be true
-        System.out.println(e4.compareTo(e3)); // should be true
+        System.out.println(e3.compareTo(e4)); // should be false
+        System.out.println(e4.compareTo(e3)); // should be false
 
         System.out.println();
     }
+
+    public static void ninthTest() {
+        System.out.println("Running Ninth Test");
+
+        // comparing edges, but this time using the equals() method
+        Edge e1 = new Edge(2, 3);
+        Edge e2 = new Edge(3, 2);
+        Edge e3 = new Edge(1, 2);
+        Edge e4 = new Edge(1, 2);
+
+        System.out.println(e1.equals(e2)); // should be false
+        System.err.println(e2.equals(e1)); // should be false
+        System.out.println(e2.equals(e3)); // should be false
+        System.out.println(e3.equals(e3)); // should be true
+        System.out.println(e3.equals(e4)); // should be true
+        System.out.println(e4.equals(e3)); // should be true
+
+        System.out.println();
+    }
+
 }
