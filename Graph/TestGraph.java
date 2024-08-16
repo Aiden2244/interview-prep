@@ -9,6 +9,8 @@ public class TestGraph {
         seventhTest();
         eighthTest();
         ninthTest();
+        tenthTest();
+        eleventhTest();
     }
 
     public static void firstTest() {
@@ -175,6 +177,64 @@ public class TestGraph {
         System.out.println(e3.equals(e3)); // should be true
         System.out.println(e3.equals(e4)); // should be true
         System.out.println(e4.equals(e3)); // should be true
+
+        System.out.println();
+    }
+
+    public static void tenthTest() {
+        System.out.println("Running Tenth Test");
+
+        // testing the general functionality of the connections data structure
+        Graph g = new Graph();
+
+        g.addNode(0);
+        g.addNode(1);
+        g.addNode(2);
+        g.addNode(3);
+        g.addNode(4);
+
+        g.addEdge(3, 1);
+        g.addEdge(2, 3);
+        g.addEdge(2, 1);
+        g.addEdge(1, 4);
+
+        System.out.println(g.getEdgesForNode(0)); // 0 should have no edges
+        System.out.println(g.getEdgesForNode(1)); // 1 should have edges (1, 3), (1, 4) and (1, 2)
+        System.out.println(g.getEdgesForNode(2)); // 2 should have edges (2, 3) and (2, 1)
+        System.out.println(g.getEdgesForNode(3)); // 3 should have edge (3, 1) and (3, 2)
+        System.out.println(g.getEdgesForNode(4)); // 4 should have edge (4, 1)
+
+
+        System.out.println();
+
+        System.out.println();
+    }
+
+    public static void eleventhTest() {
+        System.out.println("Running Elevent Test");
+
+        // testing the functionality of the connections data structure on a directed graph
+        Graph g = new Graph(true);
+
+        g.addNode(0);
+        g.addNode(1);
+        g.addNode(2);
+        g.addNode(3);
+        g.addNode(4);
+
+        g.addEdge(3, 1);
+        g.addEdge(2, 3);
+        g.addEdge(2, 1);
+        g.addEdge(1, 4);
+
+        System.out.println(g.getEdgesForNode(0)); // 0 should have no edges
+        System.out.println(g.getEdgesForNode(1)); // 1 should have edges (1, 4)
+        System.out.println(g.getEdgesForNode(2)); // 2 should have edges (2, 3) and (2, 1)
+        System.out.println(g.getEdgesForNode(3)); // 3 should have edge (3, 1)
+        System.out.println(g.getEdgesForNode(4)); // 4 should have no edges
+
+
+        System.out.println();
 
         System.out.println();
     }
