@@ -28,8 +28,8 @@ public class Node {
 
     public int getValue() { return value; }
 
-    public void toggleDiscovered() { discovered = !discovered; }
-    public void toggleExplored() { explored = !explored; }
+    public void setDiscovered(boolean d) { discovered = d; }
+    public void setExplored(boolean e) { explored = e; }
 
     public boolean getDiscovered() { return discovered; }
     public boolean getExplored() { return explored; }

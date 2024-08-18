@@ -1,7 +1,9 @@
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Set;
 import java.lang.StringBuilder;
+import java.util.Queue;
 
 public class Graph {
 
@@ -85,6 +87,18 @@ public class Graph {
         return connections.get(nodes.get(n));
     }
 
+    // essentially just converts a hash set of edges into a hash set of nodes
+    public HashSet<Node> getNeighbors(Integer n) {
+        HashSet<Node> neighborNodes = new HashSet<>();
+        HashSet<Edge> neighborEdges = getEdgesForNode(n);
+
+        for (Edge e : neighborEdges) {
+            neighborNodes.add(e.getEnd());
+        }
+
+        return neighborNodes;
+    } // getNeighbors
+
     // returns a string representation of the graph
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -101,5 +115,35 @@ public class Graph {
         }
 
         return sb.toString();
-    }
+    } // toString
+
+    // depth-first search algorithm (public method)
+    public LinkedList<Node> DFS(Integer s) {
+
+        LinkedList<Node> traversal = new LinkedList<>(); // this line is why 2 methods are necessary
+        return DFS(s, traversal);
+        
+    } // DFS (public)
+
+    // depth-first search algorithm (private method) 
+    private LinkedList<Node> DFS(Integer s, LinkedList<Node> traversal) {
+
+        Node current = nodes.get(s); // find the current node object
+        HashSet<Node> neighbors = getNeighbors(s); // get the node's neighbors
+
+        traversal.add(current); // add the current node to the traversal
+        current.setDiscovered(true); // set the discovered parameter to true
+
+        // loop over current node's neighbors, and call alg again on all undisovered neighbors
+        for (Node n : neighbors) {
+            if (!n.getDiscovered()) {
+                return DFS(n.getValue(), traversal);
+            }
+        }
+
+        return traversal; 
+        // will only execute once current node has only discovered neighbors 
+        // (and work via recursive magic)
+    } // DFS (private)
+
 }
