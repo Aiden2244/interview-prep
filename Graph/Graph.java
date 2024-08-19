@@ -18,19 +18,19 @@ public class Graph {
         nodes = new HashMap<>();
         edges = new HashSet<>();
         connections = new HashMap<>();
-    }
+    } // initialize
 
     // no paramters constructor  (default: directed=false)
     public Graph() {
         initialize();
         directed = false;
-    }
+    } // Graph (no parameters)
 
     // boolean parameter constructor (directed=d)
     public Graph(boolean d) {
         initialize();
         directed = d;
-    }
+    } // Graph (boolean d)
 
     // add a node to the node set of the graph
     public void addNode(int n) {
@@ -39,7 +39,7 @@ public class Graph {
             return;
         }
         nodes.put(n, new Node(n));
-    }
+    } // addNode
 
     // helper method that checks if a node is already in the graph and adds it if not
     private void attemptToAdd(int n) {
@@ -47,7 +47,7 @@ public class Graph {
             System.out.println("Node " + n + " is not in the graph, adding node " + n);
             addNode(n);
         }
-    }
+    } // attemptToAdd
 
     // helper function that adds a node-edge pair to the connections ds
     private void addConnection(Node n, Edge e) {
@@ -55,7 +55,7 @@ public class Graph {
         if (hashSet == null) hashSet = new HashSet<>();
         hashSet.add(e);
         connections.put(n, hashSet);
-    }
+    } // addConnection
 
     // adds an edge to the edge set
     public void addEdge(int first, int second) {
@@ -72,8 +72,6 @@ public class Graph {
             }
         }
 
-        
-
         edges.add(fToS);
         addConnection(nodes.get(first), fToS);
 
@@ -81,11 +79,11 @@ public class Graph {
             edges.add(sToF);
             addConnection(nodes.get(second), sToF);
         }
-    }
+    } // addEdge
 
     public HashSet<Edge> getEdgesForNode(Integer n) {
         return connections.get(nodes.get(n));
-    }
+    } // getEdgesForNode
 
     // essentially just converts a hash set of edges into a hash set of nodes
     public HashSet<Node> getNeighbors(Integer n) {
@@ -102,42 +100,65 @@ public class Graph {
     // returns a string representation of the graph
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        Set<Integer> keys = nodes.keySet();
 
         sb.append("Nodes:\n");
-        for (int key : keys) {
-            sb.append(nodes.get(key) + "\n");
-        }
+        sb.append(getNodes() + "\n");
         
         sb.append("\nEdges:\n");
-        for (Edge edge : edges) {
-            sb.append(edge + "\n");
-        }
+        sb.append(getEdges() + "\n");
+
+        sb.append("\nConnections:\n");
+        sb.append(getConnections() + "\n");
 
         return sb.toString();
     } // toString
+
+    // get the nodes 
+    public HashSet<Node> getNodes() { 
+        Set<Integer> keys = nodes.keySet();
+        HashSet<Node> returnMe = new HashSet<>();
+        for (Integer k : keys) {
+            returnMe.add(nodes.get(k));
+        }
+        return returnMe;
+    } // getNodes
+
+    public HashSet<Edge> getEdges() {
+        return edges;
+    } // getEdges
+
+    public HashMap<Node, HashSet<Edge>> getConnections() {
+        return connections;
+    }
+
 
     // depth-first search algorithm (public method)
     public LinkedList<Node> DFS(Integer s) {
 
         LinkedList<Node> traversal = new LinkedList<>(); // this line is why 2 methods are necessary
-        return DFS(s, traversal);
+        Node current = nodes.get(s);
+        return DFS(current, traversal);
         
     } // DFS (public)
 
     // depth-first search algorithm (private method) 
-    private LinkedList<Node> DFS(Integer s, LinkedList<Node> traversal) {
+    private LinkedList<Node> DFS(Node current, LinkedList<Node> traversal) {
 
-        Node current = nodes.get(s); // find the current node object
-        HashSet<Node> neighbors = getNeighbors(s); // get the node's neighbors
+        System.err.println();
+        HashSet<Node> neighbors = getNeighbors(current.getValue()); // get the node's neighbors
 
-        traversal.add(current); // add the current node to the traversal
+        System.err.println("Neighbors of " + current + ": " + neighbors);
+
         current.setDiscovered(true); // set the discovered parameter to true
+        traversal.add(current); // add the current node to the traversal
 
         // loop over current node's neighbors, and call alg again on all undisovered neighbors
         for (Node n : neighbors) {
+            System.out.print("Current = " + current + " " + "Discovevered: " + current.getDiscovered());
+            System.out.println(", n = " + n + " " + "Discovevered: " + n.getDiscovered());
             if (!n.getDiscovered()) {
-                return DFS(n.getValue(), traversal);
+                System.err.println("DFS: " + traversal);
+                DFS(n, traversal);
             }
         }
 

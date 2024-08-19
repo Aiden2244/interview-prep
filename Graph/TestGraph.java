@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.HashMap;
+
 public class TestGraph {
     public static void main(String[] args) {
         firstTest();   
@@ -11,6 +14,8 @@ public class TestGraph {
         ninthTest();
         tenthTest();
         eleventhTest();
+        twelfthTest();
+        thirteenthTest();
     }
 
     public static void firstTest() {
@@ -204,14 +209,11 @@ public class TestGraph {
         System.out.println(g.getEdgesForNode(3)); // 3 should have edge (3, 1) and (3, 2)
         System.out.println(g.getEdgesForNode(4)); // 4 should have edge (4, 1)
 
-
-        System.out.println();
-
         System.out.println();
     }
 
     public static void eleventhTest() {
-        System.out.println("Running Elevent Test");
+        System.out.println("Running Eleventh Test");
 
         // testing the functionality of the connections data structure on a directed graph
         Graph g = new Graph(true);
@@ -233,9 +235,62 @@ public class TestGraph {
         System.out.println(g.getEdgesForNode(3)); // 3 should have edge (3, 1)
         System.out.println(g.getEdgesForNode(4)); // 4 should have no edges
 
-
         System.out.println();
+    }
 
+    public static void twelfthTest() {
+        System.out.println("Running Twelfth Test");
+
+        // Testing what the graph knows about itself
+        Graph g = new Graph();
+
+        g.addNode(0);
+        g.addNode(1);
+        g.addNode(2);
+        g.addNode(3);
+        g.addNode(4);
+
+        g.addEdge(0, 1);
+        g.addEdge(1, 3);
+        g.addEdge(3, 2);
+        g.addEdge(3, 0);
+        g.addEdge(2, 0);
+        g.addEdge(3, 4);
+
+        System.out.println(g);
+
+        // test the get neighbors feature
+        System.out.println("Neighbors:");
+        System.out.println(g.getNeighbors(4)); // should just be 3
+        System.out.println(g.getNeighbors(3)); // should be 4, 0, 1, and 2
+        System.out.println(g.getNeighbors(2)); // should be 3 and 0
+        System.out.println(g.getNeighbors(1)); // should be 3 and 0
+        System.out.println(g.getNeighbors(0)); // should be 1, 3 and 2
+        
+        System.out.println();
+    }
+
+    public static void thirteenthTest() {
+        System.out.println("Running Thirteenth Test");
+
+        // Testing DFS
+        Graph g = new Graph();
+
+        g.addNode(0);
+        g.addNode(1);
+        g.addNode(2);
+        g.addNode(3);
+        g.addNode(4);
+
+        g.addEdge(0, 1);
+        g.addEdge(1, 3);
+        g.addEdge(3, 2);
+        g.addEdge(3, 0);
+        g.addEdge(2, 0);
+        g.addEdge(3, 4);
+
+        System.out.println("DFS: " + g.DFS(0));
+        
         System.out.println();
     }
 
