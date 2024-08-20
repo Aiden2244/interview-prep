@@ -1,7 +1,11 @@
+import java.util.Random;
 import java.util.HashSet;
-import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class TestGraph {
+
+    private static final Random random = new Random();
     public static void main(String[] args) {
         firstTest();   
         secondTest();
@@ -18,6 +22,83 @@ public class TestGraph {
         thirteenthTest();
     }
 
+    /* UTILITIEs */
+
+    // default graph
+    public static Graph generateRandomGraph(int numNodes, int numEdges) {
+        return generateRandomGraph(numNodes, numEdges, false, true);
+    }
+
+    // gives control over directedness
+    public static Graph generateRandomGraph(int numNodes, int numEdges, boolean directed) {
+        return generateRandomGraph(numNodes, numEdges, directed, true);
+    }
+
+    // total parameter control
+    public static Graph generateRandomGraph(
+        int numNodes, 
+        int numEdges, 
+        boolean directed, 
+        boolean connected
+    )
+    {
+        
+        // inititalize constants
+        Graph g = new Graph(directed);
+
+        // limit the number of edges that can be in the graph
+        if (numEdges > (2 * numNodes)) {
+            System.out.println("Number of edges is too large, resetting to 2*n");
+            numEdges = 2*numNodes;
+        }
+
+        // put a floor for the number of edges in connected graphs
+        else if (connected && (numEdges < (numNodes - 1))) {
+            System.out.println(
+            "Number of edges is too small for a connected graph, setting to minimum numNodes - 1");
+            numEdges = numNodes - 1;
+        }
+
+        // generate the node values
+        for (int i = 0; i < numNodes; i++) {
+            g.addNode(i);
+        }
+
+        // generate the edges 
+        if (connected) {
+
+            for (int i = 0; i < numNodes; i++) {
+
+            }
+            
+            if (numEdges >= numNodes) {
+                for (int j = numNodes; j < numEdges; j++) {
+                    
+                    Object[] nodeValuesArray = nodeValues.toArray();
+
+                    // generate indices
+                    int first = random.nextInt(nodeValues.size() - 1);
+                    while (firstIndex == secondIndex) {
+                        random.nextInt(nodeValues.size() - 1);
+                    }
+
+                    // add the edges
+                    g.addEdge((int) nodeValuesArray[firstIndex], (int) nodeValuesArray[secondIndex]);
+
+                }
+            }
+        }
+
+        else {
+
+        }
+
+
+        return g;
+    }
+
+
+    /* TESTS */
     public static void firstTest() {
         System.out.println("Running First Test");
         Graph g = new Graph();
@@ -289,8 +370,12 @@ public class TestGraph {
         g.addEdge(2, 0);
         g.addEdge(3, 4);
 
-        System.out.println("DFS: " + g.DFS(0));
-        
+        System.out.println("DFS(0): " + g.DFS(0));
+        System.out.println("DFS(1): " + g.DFS(1));
+        System.out.println("DFS(2): " + g.DFS(2));
+        System.out.println("DFS(3): " + g.DFS(3));
+        System.out.println("DFS(4): " + g.DFS(4));
+
         System.out.println();
     }
 

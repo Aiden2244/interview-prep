@@ -3,7 +3,6 @@ import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
 import java.lang.StringBuilder;
-import java.util.Queue;
 
 public class Graph {
 
@@ -134,37 +133,45 @@ public class Graph {
 
     // depth-first search algorithm (public method)
     public LinkedList<Node> DFS(Integer s) {
-
         LinkedList<Node> traversal = new LinkedList<>(); // this line is why 2 methods are necessary
         Node current = nodes.get(s);
-        return DFS(current, traversal);
-        
+        traversal = DFS(current, traversal);
+        resetGraph();
+        return traversal;
     } // DFS (public)
 
     // depth-first search algorithm (private method) 
     private LinkedList<Node> DFS(Node current, LinkedList<Node> traversal) {
 
-        System.err.println();
+        // System.err.println();
         HashSet<Node> neighbors = getNeighbors(current.getValue()); // get the node's neighbors
 
-        System.err.println("Neighbors of " + current + ": " + neighbors);
+        // System.err.println("Neighbors of " + current + ": " + neighbors);
 
         current.setDiscovered(true); // set the discovered parameter to true
         traversal.add(current); // add the current node to the traversal
 
         // loop over current node's neighbors, and call alg again on all undisovered neighbors
         for (Node n : neighbors) {
-            System.out.print("Current = " + current + " " + "Discovevered: " + current.getDiscovered());
-            System.out.println(", n = " + n + " " + "Discovevered: " + n.getDiscovered());
+            // System.out.print("Current = " + current + " " + "Discovevered: " + current.getDiscovered());
+            // System.out.println(", n = " + n + " " + "Discovevered: " + n.getDiscovered());
             if (!n.getDiscovered()) {
-                System.err.println("DFS: " + traversal);
+                // System.err.println("DFS: " + traversal);
                 DFS(n, traversal);
             }
         }
-
         return traversal; 
         // will only execute once current node has only discovered neighbors 
         // (and work via recursive magic)
     } // DFS (private)
+
+
+    // utility that resets all nodes to their default values
+    private void resetGraph() {
+        for (Node n : getNodes()) {
+            n.setDiscovered(false);
+            n.setExplored(false);
+        }
+    }
 
 }
